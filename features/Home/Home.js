@@ -6,6 +6,7 @@ import { useState } from 'react';
 
 const Home = ({navigation}) => {
   const [data, setData] = useState([]);
+  const [hide, setHide] = useState(false);
  const list = [
   {key: 'Mot'},
   {key: 'Hai'},
@@ -35,13 +36,21 @@ const Home = ({navigation}) => {
 
           <Button
             color="#f194ff"
-            title='Hiển thị danh sách sinh viên'
-            onPress={() => setData(list)}
+            title={!hide ? 'Hiển thị danh sách sinh viên' : "An danh sach"}
+            onPress={() => {
+              
+              setHide(!hide)
+              if (hide) {
+                setData([])
+              } else {
+                setData(list);
+              }
+            }}
           />
-          {data.length > 0 && (<FlatList
+          <FlatList
             data={data}
             renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
-          />)}
+          />
           
 
           <StatusBar style="auto" />
